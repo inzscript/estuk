@@ -20,6 +20,8 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
+    #Use cancan to manage authority ot edit book
+    authorize! :manage, @book
   end
 
   # POST /books
@@ -41,6 +43,8 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
+    #Use cancan to manage authority ot update book
+    authorize! :manage, @book
     respond_to do |format|
       if @book.update(book_params)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
@@ -55,6 +59,8 @@ class BooksController < ApplicationController
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
+    #Use cancan to manage authority ot destroy book
+    authorize! :manage, @book
     @book.destroy
     respond_to do |format|
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
