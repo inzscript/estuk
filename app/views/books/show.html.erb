@@ -6,6 +6,23 @@
     <h4><%= @book.name %><br /> by <%= @book.author %></h4>
     <p><%= @book.description %></p>
     <p class="bg-info"><strong><%= number_to_currency(@book.price.to_f / 100) %></strong></p>
+
+    <% if current_user %>
+ 
+	<%= form_tag buy_path(slug: @book.slug) do %>
+	<script
+	    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+	    data-amount="<%= @book.price %>"
+	    data-name="eStuk"
+	    data-description="<%= @book.name %>"
+	    data-email="<%= current_user.email %>">
+	  </script>
+	<% end %>
+	<% else %>
+		<p>Please Login First to Buy</p>
+	<% end %>
+
   </div>
 </div> 
 
